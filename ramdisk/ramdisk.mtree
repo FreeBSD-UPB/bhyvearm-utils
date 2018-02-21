@@ -2,36 +2,152 @@
 
 # Setting the default type to "dir" allows pathnames to be implicitly created
 # for components leading up to the file.
-/set type=dir mode=0755 uid=0 gid=0 flags=none
+/set type=dir mode=0777 uid=0 gid=0 flags=none
 
-./dev		type=dir mode=0555  flags=uarch
-./sbin/init	type=file mode=0555 contents="${ODIR}/sbin/init/init"
-./bin/sh	type=file mode=0555 contents="${ODIR}/rescue/rescue/rescue"
+./dev					type=dir  mode=0755 flags=uarch
+./root					type=dir  mode=0755 flags=none
+./var/empty				type=dir  mode=0555 flags=none
 
-./lib/libthr.so.3		type=file mode=0555 contents="${ODIR}/lib/libthr/libthr.so.3"
-./lib/libmd.so.6		type=file mode=0555 contents="${ODIR}/lib/libmd/libmd.so.6"
-./lib/libc.so.7			type=file mode=0555 contents="${ODIR}/lib/libc/libc.so.7"
-./lib/libgcc_s.so.1		type=file mode=0555 contents="${ODIR}/gnu/lib/libgcc/libgcc_s.so.1"
+./bin/sh				type=file mode=0555 contents="${ODIR}/rescue/rescue/rescue"
 
-./libexec/ld-elf.so.1		type=file mode=0555 contents="${ODIR}/libexec/rtld-elf/ld-elf.so.1"
-./usr/lib/libvmmapi.so.5	type=file mode=0555 contents="${ODIR}/lib/libvmmapi/libvmmapi.so.5"
+./etc/fstab				type=file mode=0444 contents="./fstab"
+./etc/shells				type=file mode=0444 contents="./shells"
+./etc/ssh/sshd_config			type=file mode=0444 contents="./sshd_config"
+./etc/ssh/ssh_host_ecdsa_key		type=file mode=0600 contents="./ssh_host_ecdsa_key"
+./etc/ssh/ssh_host_ecdsa_key.pub	type=file mode=0644 contents="./ssh_host_ecdsa_key.pub"
+./etc/ssh/ssh_host_ed25519_key		type=file mode=0600 contents="./ssh_host_ed25519_key"
+./etc/ssh/ssh_host_ed25519_key.pub	type=file mode=0644 contents="./ssh_host_ed25519_key.pub"
+./etc/ssh/ssh_host_rsa_key		type=file mode=0600 contents="./ssh_host_rsa_key"
+./etc/ssh/ssh_host_rsa_key.pub		type=file mode=0644 contents="./ssh_host_rsa_key.pub"
+# User info
+./etc/login.conf			type=file mode=0644 contents="./login.conf"
+./etc/pwd.db				type=file mode=0644 contents="./pwd.db"
+./etc/spwd.db				type=file mode=0600 contents="./spwd.db"
+./etc/master.passwd			type=file mode=0644 contents="./master.passwd"
+./etc/passwd				type=file mode=0644 contents="./master.passwd"
+./etc/sysctl.conf			type=file mode=0644 contents="./sysctl.conf"
 
-./usr/bin/ldd			type=file mode=0555 contents="${ODIR}/usr.bin/ldd/ldd"
+# ssh authorization
+./root/.ssh				type=dir  mode=0700 flags=none
+./root/.ssh/authorized_keys		type=file mode=0400 contents="./id_rsa_board.pub"
 
-./kernel.bin			type=file mode=0555 contents="./kernel.bin"
+./sbin/ifconfig				type=file mode=0555 contents="${ODIR}/sbin/ifconfig/ifconfig"
+./sbin/init				type=file mode=0555 contents="${ODIR}/sbin/init/init"
 
-./usr/bin/grep			type=file mode=0555 contents="${ODIR}/gnu/usr.bin/grep/grep"
-./usr/bin/bhyve			type=file mode=0555 contents="${ODIR}/usr.sbin/bhyve/bhyve"
-./usr/bin/bhyveload     	type=file mode=0555 contents="${ODIR}/usr.sbin/bhyveload/bhyveload"
+./usr/bin/basename			type=file mode=0555 contents="${ODIR}/usr.bin/basename/basename"
+./usr/bin/bhyve				type=file mode=0555 contents="${ODIR}/usr.sbin/bhyve/bhyve"
+./usr/bin/bhyveload     		type=file mode=0555 contents="${ODIR}/usr.sbin/bhyveload/bhyveload"
+./usr/bin/cut				type=file mode=0555 contents="${ODIR}/usr.bin/cut/cut"
+./usr/bin/grep				type=file mode=0555 contents="${ODIR}/gnu/usr.bin/grep/grep"
+./usr/bin/ldd				type=file mode=0555 contents="${ODIR}/usr.bin/ldd/ldd"
+./usr/bin/netstat			type=file mode=0555 contents="${ODIR}/usr.bin/netstat/netstat"
+./usr/bin/passwd			type=file mode=0555 contents="${ODIR}/usr.bin/passwd/passwd"
+./usr/bin/socat				type=file mode=0555 contents="./socat"
 
-./boot/kernel/vmm.ko	type=file mode=0555 contents="${ODIR}/sys/FVP_VE_CORTEX_A15x1/modules/root/bhyvearm/src/sys/modules/vmm/vmm.ko"
+./usr/sbin/adduser			type=file mode=0555 contents="./adduser.sh"
+./usr/sbin/arp				type=file mode=0555 contents="${ODIR}/usr.sbin/arp/arp"
+./usr/sbin/nologin			type=file mode=0555 contents="${ODIR}/usr.sbin/nologin/nologin"
+./usr/sbin/sshd				type=file mode=0555 contents="${ODIR}/secure/usr.sbin/sshd/sshd"
+./usr/sbin/traceroute			type=file mode=04555 contents="${ODIR}/usr.sbin/traceroute/traceroute"
+./usr/sbin/pw				type=file mode=0555 contents="${ODIR}/usr.sbin/pw/pw"
+./usr/sbin/tcpdump			type=file mode=0555 contents="${ODIR}/usr.sbin/tcpdump/tcpdump/tcpdump"
+
+./lib/lib80211.so.1			type=file mode=0555 contents="${ODIR}/lib/lib80211/lib80211.so.1"
+./lib/libasn1.so.11			type=file mode=0555 contents="${ODIR}/kerberos5/lib/libasn1/libasn1.so.11"
+./lib/libbsm.so.3			type=file mode=0555 contents="${ODIR}/lib/libbsm/libbsm.so.3"
+./lib/libbsdxml.so.4			type=file mode=0555 contents="${ODIR}/lib/libexpat/libbsdxml.so.4"
+./lib/libroken.so.11			type=file mode=0555 contents="${ODIR}/kerberos5/lib/libroken/libroken.so.11"
+./lib/libblacklist.so.0			type=file mode=0555 contents="${ODIR}/lib/libblacklist/libblacklist.so.0"
+./lib/libc.so.7				type=file mode=0555 contents="${ODIR}/lib/libc/libc.so.7"
+./lib/libcap_dns.so.0			type=file mode=0555 contents="${ODIR}/lib/libcasper/services/cap_dns/libcap_dns.so.0"
+./lib/libcasper.so.0			type=file mode=0555 contents="${ODIR}/lib/libcasper/libcasper/libcasper.so.0"
+./lib/libcom_err.so.5			type=file mode=0555 contents="${ODIR}/lib/libcom_err/libcom_err.so.5"
+./lib/libcrypt.so.5			type=file mode=0555 contents="${ODIR}/lib/libcrypt/libcrypt.so.5"
+./lib/libcrypto.so.8			type=file mode=0555 contents="${ODIR}/secure/lib/libcrypto/libcrypto.so.8"
+./lib/libelf.so.2			type=file mode=0555 contents="${ODIR}/lib/libelf/libelf.so.2"
+./lib/libgcc_s.so.1			type=file mode=0555 contents="${ODIR}/gnu/lib/libgcc/libgcc_s.so.1"
+./lib/libgssapi_krb5.so.10		type=file mode=0555 contents="${ODIR}/kerberos5/lib/libgssapi_krb5/libgssapi_krb5.so.10"
+./lib/libgssapi.so.10			type=file mode=0555 contents="${ODIR}/lib/libgssapi/libgssapi.so.10"
+./lib/libheimbase.so.11			type=file mode=0555 contents="${ODIR}/kerberos5/lib/libheimbase/libheimbase.so.11"
+./lib/libhx509.so.11			type=file mode=0555 contents="${ODIR}/kerberos5/lib/libhx509/libhx509.so.11"
+./lib/libipsec.so.4			type=file mode=0555 contents="${ODIR}/lib/libipsec/libipsec.so.4"
+./lib/libjail.so.1			type=file mode=0555 contents="${ODIR}/lib/libjail/libjail.so.1"
+./lib/libkiconv.so.4			type=file mode=0555 contents="${ODIR}/lib/libkiconv/libkiconv.so.4"
+./lib/libkrb5.so.11			type=file mode=0555 contents="${ODIR}/kerberos5/lib/libkrb5/libkrb5.so.11"
+./lib/libkvm.so.7			type=file mode=0555 contents="${ODIR}/lib/libkvm/libkvm.so.7"
+./lib/libm.so.5				type=file mode=0555 contents="${ODIR}/lib/msun/libm.so.5"
+./lib/libmd.so.6			type=file mode=0555 contents="${ODIR}/lib/libmd/libmd.so.6"
+./lib/libmemstat.so.3			type=file mode=0555 contents="${ODIR}/lib/libmemstat/libmemstat.so.3"
+./lib/libnetgraph.so.4			type=file mode=0555 contents="${ODIR}/lib/libnetgraph/libnetgraph.so.4"
+./lib/libnv.so.0			type=file mode=0555 contents="${ODIR}/lib/libnv/libnv.so.0"
+./lib/libpam.so.6			type=file mode=0555 contents="${ODIR}/lib/libpam/libpam/libpam.so.6"
+./lib/libpcap.so.8			type=file mode=0555 contents="${ODIR}/lib/libpcap/libpcap.so.8"
+./lib/libprivateheimipcc.so.11		type=file mode=0555 contents="${ODIR}/kerberos5/lib/libheimipcc/libprivateheimipcc.so.11"
+./lib/libprivateldns.so.5		type=file mode=0555 contents="${ODIR}/lib/libldns/libprivateldns.so.5"
+./lib/libprivatessh.so.5		type=file mode=0555 contents="${ODIR}/secure/lib/libssh/libprivatessh.so.5"
+./lib/librt.so.1			type=file mode=0555 contents="${ODIR}/lib/librt/librt.so.1"
+./lib/libsbuf.so.6			type=file mode=0555 contents="${ODIR}/lib/libsbuf/libsbuf.so.6"
+./lib/libssl.so.8			type=file mode=0555 contents="${ODIR}/secure/lib/libssl/libssl.so.8"
+./lib/libthr.so.3			type=file mode=0555 contents="${ODIR}/lib/libthr/libthr.so.3"
+./lib/libutil.so.9			type=file mode=0555 contents="${ODIR}/lib/libutil/libutil.so.9"
+./lib/libwind.so.11			type=file mode=0555 contents="${ODIR}/kerberos5/lib/libwind/libwind.so.11"
+./lib/libwrap.so.6			type=file mode=0555 contents="${ODIR}/lib/libwrap/libwrap.so.6"
+./lib/libxo.so.0			type=file mode=0555 contents="${ODIR}/lib/libxo/libxo.so.0"
+./lib/libz.so.6				type=file mode=0555 contents="${ODIR}/lib/libz/libz.so.6"
+
+./libexec/ld-elf.so.1			type=file mode=0555 contents="${ODIR}/libexec/rtld-elf/ld-elf.so.1"
+./usr/lib/libvmmapi.so.5		type=file mode=0555 contents="${ODIR}/lib/libvmmapi/libvmmapi.so.5"
+
+./kernel.bin				type=file mode=0555 contents="./kernel.bin"
+
+./boot/kernel/vmm.ko			type=file mode=0555 contents="${ODIR}/sys/${PLATFORM}/modules/root/freebsd/sys/modules/vmm/vmm.ko"
+
+./run_bhyve.sh				type=file mode=0555 contents="./run_bhyve.sh"
+./network.sh				type=file mode=0555 contents="./network.sh"
+./mevent_test				type=file mode=0555 contents="./mevent_test"
+
+./blk_disk				type=file mode=0666 contents="./blk_disk"
 
 # hard-links to the statically-linked  rescue binary (aka /bin/sh)
-./bin/sysctl	type=link mode=0555 link=/bin/sh
-./bin/reboot	type=link mode=0555 link=/bin/sh
-./bin/ls	type=link mode=0555 link=/bin/sh
-./bin/kldload	type=link mode=0555 link=/bin/sh
-./bin/kldunload	type=link mode=0555 link=/bin/sh
-./bin/kldstat	type=link mode=0555 link=/bin/sh
+# cat chflags chio chmod cp date dd df echo ed red expr getfacl hostname kenv
+# kill ln link ls mkdir mv pkill pgrep ps pwd realpath rm unlink rmdir setfacl
+# sh -sh sleep stty sync test [ csh -csh tcsh -tcsh badsect camcontrol clri
+# devfs dmesg dump rdump dumpfs dumpon fsck fsck_ffs fsck_4.2bsd fsck_ufs
+# fsck_msdosfs fsdb fsirand gbde geom glabel gpart ifconfig init kldconfig
+# kldload kldstat kldunload ldconfig md5 mdconfig mdmfs mknod mount mount_cd9660
+# mount_msdosfs mount_nfs mount_nullfs mount_udf mount_unionfs newfs newfs_msdos
+# nos-tun ping reboot fastboot halt fasthalt restore rrestore rcorder route
+# savecore shutdown poweroff spppcontrol swapon sysctl tunefs umount ccdconfig
+# ping6 rtsol ipf routed rtquery zfs zpool dhclient head mt sed tail tee gzip
+# gunzip gzcat zcat bzip2 bunzip2 bzcat less more xz unxz lzma unlzma xzcat
+# lzcat zstd unzstd zstdcat zstdmt tar nc vi ex id groups whoami iscsictl zdb
+# chroot chown chgrp iscsid rescue
+./bin/cat				type=link mode=0555 link=/bin/sh
+./bin/chmod				type=link mode=0555 link=/bin/sh
+./bin/chroot				type=link mode=0555 link=/bin/sh
+./bin/chown				type=link mode=0555 link=/bin/sh
+./bin/date				type=link mode=0555 link=/bin/sh
+./bin/echo				type=link mode=0555 link=/bin/sh
+./usr/bin/id				type=link mode=0555 link=/bin/sh
+./bin/kldload				type=link mode=0555 link=/bin/sh
+./bin/kldstat				type=link mode=0555 link=/bin/sh
+./bin/kldunload				type=link mode=0555 link=/bin/sh
+./bin/less				type=link mode=0555 link=/bin/sh
+./bin/ls				type=link mode=0555 link=/bin/sh
+./bin/mkdir				type=link mode=0555 link=/bin/sh
+./bin/mv				type=link mode=0555 link=/bin/sh
+./bin/mount				type=link mode=0555 link=/bin/sh
+./bin/mount_msdosfs			type=link mode=0555 link=/bin/sh
+./bin/nc				type=link mode=0555 link=/bin/sh
+./bin/ping				type=link mode=0555 link=/bin/sh
+./bin/stty				type=link mode=0555 link=/bin/sh
+./bin/ps				type=link mode=0555 link=/bin/sh
+./bin/rm				type=link mode=0555 link=/bin/sh
+./bin/reboot				type=link mode=0555 link=/bin/sh
+./bin/route				type=link mode=0555 link=/bin/sh
+./bin/routed				type=link mode=0555 link=/bin/sh
+./bin/sysctl				type=link mode=0555 link=/bin/sh
+./bin/umount				type=link mode=0555 link=/bin/sh
+./bin/whoami				type=link mode=0555 link=/bin/sh
 
 # ... etc. Put in as many as you want from /rescue/*
