@@ -4,16 +4,49 @@
 # for components leading up to the file.
 /set type=dir mode=0755 uid=0 gid=0 flags=none
 
-./dev		type=dir mode=0555  flags=uarch
-./sbin/init	type=file mode=0555 contents="${ODIR}/sbin/init/init"
-./bin/sh	type=file mode=0555 contents="${ODIR}/rescue/rescue/rescue"
+./dev					type=dir  mode=0555 flags=uarch
+./tmp					type=dir  mode=0777 flags=none
+./mnt					type=dir  mode=0777 flags=none
+./sbin/init				type=file mode=0555 contents="${ODIR}/sbin/init/init"
+./bin/sh				type=file mode=0555 contents="${ODIR}/rescue/rescue/rescue"
+./bin/cat				type=file mode=0555 contents="${ODIR}/bin/cat/cat"
+./bin/cu				type=file mode=0555 contents="${ODIR}/usr.bin/tip/tip/tip"
+
+./guest.sh				type=file mode=0555 contents="./guest.sh"
+
+./libexec/ld-elf.so.1			type=file mode=0555 contents="${ODIR}/libexec/rtld-elf/ld-elf.so.1"
+
+./usr/bin/ldd				type=file mode=0555 contents="${ODIR}/usr.bin/ldd/ldd"
+./usr/bin/netstat			type=file mode=0555 contents="${ODIR}/usr.bin/netstat/netstat"
+
+./lib/libc.so.7				type=file mode=0555 contents="${ODIR}/lib/libc/libc.so.7"
+./lib/libelf.so.2			type=file mode=0555 contents="${ODIR}/lib/libelf/libelf.so.2"
+./lib/libgcc_s.so.1			type=file mode=0555 contents="${ODIR}/gnu/lib/libgcc/libgcc_s.so.1"
+./lib/libkvm.so.7			type=file mode=0555 contents="${ODIR}/lib/libkvm/libkvm.so.7"
+./lib/libmemstat.so.3			type=file mode=0555 contents="${ODIR}/lib/libmemstat/libmemstat.so.3"
+./lib/libnetgraph.so.4			type=file mode=0555 contents="${ODIR}/lib/libnetgraph/libnetgraph.so.4"
+./lib/libutil.so.9			type=file mode=0555 contents="${ODIR}/lib/libutil/libutil.so.9"
+./lib/libxo.so.0			type=file mode=0555 contents="${ODIR}/lib/libxo/libxo.so.0"
 
 # hard-links to the statically-linked  rescue binary (aka /bin/sh)
-./bin/sysctl	type=link mode=0555 link=/bin/sh
-./bin/reboot	type=link mode=0555 link=/bin/sh
-./bin/ls	type=link mode=0555 link=/bin/sh
-./bin/kldload	type=link mode=0555 link=/bin/sh
-./bin/kldunload	type=link mode=0555 link=/bin/sh
-./bin/kldstat	type=link mode=0555 link=/bin/sh
+./bin/csh				type=link mode=0555 link=/bin/sh
+./bin/ifconfig				type=link mode=0555 link=/bin/sh
+./bin/kldload				type=link mode=0555 link=/bin/sh
+./bin/kldunload				type=link mode=0555 link=/bin/sh
+./bin/kldstat				type=link mode=0555 link=/bin/sh
+./bin/ls				type=link mode=0555 link=/bin/sh
+./bin/mount				type=link mode=0555 link=/bin/sh
+./bin/mount_cd9660			type=link mode=0555 link=/bin/sh
+./bin/mount_nfs				type=link mode=0555 link=/bin/sh
+./bin/mount_nullfs			type=link mode=0555 link=/bin/sh
+./bin/mount_udf				type=link mode=0555 link=/bin/sh
+./bin/mount_unionfs			type=link mode=0555 link=/bin/sh
+./bin/nc				type=link mode=0555 link=/bin/sh
+./bin/ping				type=link mode=0555 link=/bin/sh
+./bin/reboot				type=link mode=0555 link=/bin/sh
+./bin/route				type=link mode=0555 link=/bin/sh
+./bin/routed				type=link mode=0555 link=/bin/sh
+./bin/sysctl				type=link mode=0555 link=/bin/sh
+./bin/umount				type=link mode=0555 link=/bin/sh
 
 # ... etc. Put in as many as you want from /rescue/*
