@@ -1,0 +1,10 @@
+The script expects FastModels and FixedVirtualPlatforms to be installed in
+the current directory under the default names (currently, 'ARM' for FastModels
+and 'FVP_VE_Cortex-A15x124' for FixedVirtualPlatforms). If not, please update
+the FVPDIR and FASTMODELSDIR variables in the script.
+
+Simply running the 'run' script should fetch the host kernel and start the
+emulator for you.
+
+Please add the 'licence.dat' file received for the FastModels emulator under
+the 'files' directory
