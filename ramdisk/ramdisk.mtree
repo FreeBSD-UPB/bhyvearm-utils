@@ -24,7 +24,7 @@
 ./etc/pwd.db				type=file mode=0644 contents="./pwd.db"
 ./etc/spwd.db				type=file mode=0600 contents="./spwd.db"
 ./etc/master.passwd			type=file mode=0644 contents="./master.passwd"
-./etc/passwd				type=file mode=0644 contents="./master.passwd"
+./etc/passwd				type=file mode=0644 contents="./passwd"
 ./etc/sysctl.conf			type=file mode=0644 contents="./sysctl.conf"
 
 # ssh authorization
@@ -42,7 +42,6 @@
 ./usr/bin/ldd				type=file mode=0555 contents="${ODIR}/usr.bin/ldd/ldd"
 ./usr/bin/netstat			type=file mode=0555 contents="${ODIR}/usr.bin/netstat/netstat"
 ./usr/bin/passwd			type=file mode=0555 contents="${ODIR}/usr.bin/passwd/passwd"
-./usr/bin/socat				type=file mode=0555 contents="./socat"
 
 ./usr/sbin/adduser			type=file mode=0555 contents="./adduser.sh"
 ./usr/sbin/arp				type=file mode=0555 contents="${ODIR}/usr.sbin/arp/arp"
@@ -59,8 +58,8 @@
 ./lib/libroken.so.11			type=file mode=0555 contents="${ODIR}/kerberos5/lib/libroken/libroken.so.11"
 ./lib/libblacklist.so.0			type=file mode=0555 contents="${ODIR}/lib/libblacklist/libblacklist.so.0"
 ./lib/libc.so.7				type=file mode=0555 contents="${ODIR}/lib/libc/libc.so.7"
-./lib/libcap_dns.so.0			type=file mode=0555 contents="${ODIR}/lib/libcasper/services/cap_dns/libcap_dns.so.0"
-./lib/libcasper.so.0			type=file mode=0555 contents="${ODIR}/lib/libcasper/libcasper/libcasper.so.0"
+./lib/libcap_dns.so.1			type=file mode=1555 contents="${ODIR}/lib/libcasper/services/cap_dns/libcap_dns.so.1"
+./lib/libcasper.so.1			type=file mode=1555 contents="${ODIR}/lib/libcasper/libcasper/libcasper.so.1"
 ./lib/libcom_err.so.5			type=file mode=0555 contents="${ODIR}/lib/libcom_err/libcom_err.so.5"
 ./lib/libcrypt.so.5			type=file mode=0555 contents="${ODIR}/lib/libcrypt/libcrypt.so.5"
 ./lib/libcrypto.so.8			type=file mode=0555 contents="${ODIR}/secure/lib/libcrypto/libcrypto.so.8"
@@ -100,11 +99,10 @@
 
 ./kernel.bin				type=file mode=0555 contents="./kernel.bin"
 
-./boot/kernel/vmm.ko			type=file mode=0555 contents="${ODIR}/sys/${PLATFORM}/modules/root/freebsd/sys/modules/vmm/vmm.ko"
+./boot/kernel/vmm.ko			type=file mode=0555 contents="${ODIR}/sys/${PLATFORM}/modules/${BASEDIR}/sys/modules/vmm/vmm.ko"
 
 ./run_bhyve.sh				type=file mode=0555 contents="./run_bhyve.sh"
 ./network.sh				type=file mode=0555 contents="./network.sh"
-./mevent_test				type=file mode=0555 contents="./mevent_test"
 
 ./blk_disk				type=file mode=0666 contents="./blk_disk"
 
