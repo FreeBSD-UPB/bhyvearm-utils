@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# This script is used to run FastModels on a Linux host
+# the kernel is expected to be copied from a freebsd guest
+
+trap 'killall -HUP "modeldebugger"' HUP INT
+
+BIN="/root/freebsd-obj/root/freebsd/arm.armv6/sys/FVP_VE_CORTEX_A15x1/kernel.bin"
+TARGET="./files"
+FVPDIR="./FVP_VE_Cortex-A15x124"
+FASTMODELSDIR="./ARM"
+
+echo "Current time: `date`"
+echo "Copying from remote: ${BIN} to ${TARGET}"
+scp freebsd:${BIN} ${TARGET}
+
+if [ $? -ne 0 ]; then
+    echo "Copy failed. Bye bye"
+    exit 1
+fi
+
+. "${FASTMODELSDIR}/FastModelsTools_11.2/source_me.sh"
+if [ $? -ne 0 ]; then
+    echo "Souring failed. what...?"
+    exit 2
+fi
+
+sed -i -e "s,\(motherboard.hostbridge.interfaceName=\).*,\1\"ARM$(whoami)\"," files/app.txt
+${FVPDIR}/models/Linux64_GCC-4.9/FVP_VE_Cortex-A15x1 -S -f ./files/app.txt ./files/linux-system-semi.axf -q &
+${FASTMODELSDIR}/FastModelsTools_11.2/bin/modeldebugger -N -c 7000 &
+
+sleep 5
+#nc localhost 5000
+telnet localhost 5000
+
+killall -HUP "modeldebugger"
+killall -HUP "FVP_VE_Cortex-A15x1"
+killall -HUP "telnet"

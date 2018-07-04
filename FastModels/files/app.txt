@@ -1,0 +1,4 @@
+motherboard.hostbridge.interfaceName="ARM"
+motherboard.smsc_91c111.enabled=1
+motherboard.pl011_uart0.out_file="files/uart.log"
+cluster.cpu0.semihosting-cmd_line="--kernel files/kernel.bin -- "
