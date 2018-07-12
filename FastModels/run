@@ -1,22 +1,37 @@
 #!/bin/sh
 
+set -e
+
 # This script is used to run FastModels on a Linux host
 # the kernel is expected to be copied from a freebsd guest
 
 trap 'killall -HUP "modeldebugger"' HUP INT
 
-BIN="/root/freebsd-obj/root/freebsd/arm.armv6/sys/FVP_VE_CORTEX_A15x1/kernel.bin"
-TARGET="./files"
+PLATFORM=FVP_VE_CORTEX_A15x1
+TARGET=arm
+TARGET_ARCH=armv6
+
+# Change this to the name of the FreeBSD host where you build the kernel
+REMOTE_HOST=freebsd
+# Change the WORK_DIR to match the one in the variable "WORKDIR" in rebuild.sh
+# on the FreeBSD build machine
+REMOTE_WORKDIR=/root
+REMOTE_SRCDIR=${REMOTE_WORKDIR}/freebsd
+REMOTE_BOOTWRAPPERDIR=${REMOTE_WORKDIR}/bhyvearm-utils/boot-wrapper
+REMOTE_MAKEOBJDIRPREFIX=${REMOTE_WORKDIR}/freebsd-obj
+BIN="${REMOTE_MAKEOBJDIRPREFIX}/${REMOTE_SRCDIR}/${TARGET}.${TARGET_ARCH}/sys/${PLATFORM}/kernel.bin"
+
+FILEDIR="./files"
 FVPDIR="./FVP_VE_Cortex-A15x124"
 FASTMODELSDIR="./ARM"
 
 echo "Current time: `date`"
-echo "Copying from remote: ${BIN} to ${TARGET}"
-scp freebsd:${BIN} ${TARGET}
+echo "Copying from ${REMOTE_HOST}:${BIN} to ${FILEDIR}"
+scp ${REMOTE_HOST}:${BIN} ${FILEDIR}
 
-if [ $? -ne 0 ]; then
-    echo "Copy failed. Bye bye"
-    exit 1
+if [ ! -f ${FILEDIR}/linux-system-semi.axf ]; then
+    echo "The linux-system-semi.axf binary is not present; copying it from ${REMOTE_HOST}:${REMOTE_BOOTWRAPPERDIR}"
+    scp ${REMOTE_HOST}:${REMOTE_BOOTWRAPPERDIR}/linux-system-semi.axf ${FILEDIR}
 fi
 
 . "${FASTMODELSDIR}/FastModelsTools_11.2/source_me.sh"
