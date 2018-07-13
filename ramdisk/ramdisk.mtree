@@ -99,7 +99,7 @@
 
 ./kernel.bin				type=file mode=0555 contents="./kernel.bin"
 
-./boot/kernel/vmm.ko			type=file mode=0555 contents="${ODIR}/sys/${PLATFORM}/modules/${BASEDIR}/sys/modules/vmm/vmm.ko"
+./boot/kernel/vmm.ko			type=file mode=0555 contents="${ODIR}/sys/${PLATFORM}/modules/${SRCDIR}/sys/modules/vmm/vmm.ko"
 
 ./run_bhyve.sh				type=file mode=0555 contents="./run_bhyve.sh"
 ./network.sh				type=file mode=0555 contents="./network.sh"
